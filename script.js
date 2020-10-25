@@ -48,7 +48,6 @@ class MixOrMatch {
         this.matchedCards = [];
         this.busy = true;
         setTimeout(() => {
-            this.audioController.startMusic();
             this.shuffleCards(this.cardsArray);
             this.countdown = this.startCountdown();
             this.busy = false;
@@ -71,9 +70,15 @@ class MixOrMatch {
         document.getElementById('game-over-text').classList.add('visible');
     }
     victory() {
+        var timeTaken = 100 - this.timeRemaining;
         clearInterval(this.countdown);
         this.audioController.victory();
         document.getElementById('victory-text').classList.add('visible');
+        document.getElementById('victory-text').innerHTML = 
+        "VICTORY" + 
+        "<span class='overlay-text-small'>Time Taken: " + timeTaken.toString() + "s</span>" +
+        "<span class='overlay-text-small'>Flips: " + this.totalClicks.toString() + "</span>" +
+        "<span class='overlay-text-medium'>Click to Restart</span>";
     }
     hideCards() {
         this.cardsArray.forEach(card => {
